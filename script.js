@@ -53,7 +53,7 @@ button.onclick = function () {
     interval = setInterval(timeDecriment, 1000);
 };
 
-zeroTime()
+
 
 q1Button1.onclick = comp1to1
 q1Button2.onclick = comp1to2

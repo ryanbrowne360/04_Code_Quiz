@@ -2,7 +2,7 @@
 
 Description:
 
-This application is an interactive muulti-choice test. It asks the user questions and will keep track of their score. At the end they can save their scores along with their initials.
+This application is an interactive multi-choice test. It asks the user questions and will keep track of their score. At the end they can save their scores along with their initials.
 
 Installation:
 
