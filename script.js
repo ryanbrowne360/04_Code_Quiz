@@ -136,6 +136,7 @@ function timeDecriment() {
     timeLeft--
     timer.innerHTML = timeLeft
     if (timer.innerHTML <= 0) {
+        quizEnd();
         clearInterval(interval)
     }
 }
@@ -145,14 +146,6 @@ function quizEnd() {
     finalPage.style.display = "block";
 }
 
-function zeroTime() {
-
-    if (timeLeft <= 0) {
-        // hides final page as well if quizContent called, and ignores the if statement but runs if the if statment doesn't exist?
-        quizEnd()
-    }}
-
-
 initialsSubmitBtn.onclick = function () {
     localStorage.setItem("initials", initialsInput.value)
     localStorage.setItem("score", score)
@@ -161,10 +154,8 @@ initialsSubmitBtn.onclick = function () {
 
 }
 
-
+// Improvement Notes:
 // how to save and pull multiple users scores...
-// quizContent.style.display = "none";
-    // finalPage.style.display = "block";
 
 
 // // GIVEN I am taking a code quiz
