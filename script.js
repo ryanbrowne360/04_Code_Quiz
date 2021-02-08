@@ -53,6 +53,8 @@ button.onclick = function () {
     interval = setInterval(timeDecriment, 1000);
 };
 
+zeroTime()
+
 q1Button1.onclick = comp1to1
 q1Button2.onclick = comp1to2
 q1Button3.onclick = comp1to3
@@ -119,14 +121,14 @@ function compareAnswers(choice, correctChoice, nextQ, lastQ) {
     else {
         nextQ.style.display = "block";
         lastQ.style.display = "none";
-        timeLeft -= 15
+        timeLeft -= 10
     }
 }
 
 function lastQuestion(choice, correctChoice) {
     if (choice.innerText == correctChoice) {
         score += 1
-        quizEnd
+        quizEnd()
     }
 }
 
@@ -139,7 +141,7 @@ function timeDecriment() {
 }
 
 function quizEnd() {
-    quizContent.style.display = "none";
+    qDiv.style.display = "none";
     finalPage.style.display = "block";
 }
 
@@ -147,9 +149,9 @@ function zeroTime() {
 
     if (timeLeft <= 0) {
         // hides final page as well if quizContent called, and ignores the if statement but runs if the if statment doesn't exist?
-        quizEnd
-    }
-}
+        quizEnd()
+    }}
+
 
 initialsSubmitBtn.onclick = function () {
     localStorage.setItem("initials", initialsInput.value)
