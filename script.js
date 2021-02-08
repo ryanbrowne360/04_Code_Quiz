@@ -4,6 +4,11 @@ const highscores = document.getElementById("highscores")
 const buttonQ1 = document.getElementById("buttonq1");
 const qDiv = document.getElementById("qDiv")
 const introDiv = document.getElementById("introDiv")
+const finalPage = document.getElementById('finalPage')
+const quizContent = document.getElementById('quizContent')
+const initialsSubmitBtn = document.getElementById('initialsSubmit')
+const initialsInput = document.getElementById('initialsInput')
+const displayScores = document.getElementById('displayScores')
 
 
 const q1Button1 = document.getElementById("q1-1")
@@ -38,11 +43,14 @@ const Q4 = document.getElementById("Q4")
 const Q5 = document.getElementById("Q5")
 
 var score = 0
+var interval
+var timeLeft = 60
 
 
 button.onclick = function () {
     introDiv.style.display = "none";
     qDiv.style.display = "block";
+    interval = setInterval(timeDecriment, 1000);
 };
 
 q1Button1.onclick = comp1to1
@@ -65,44 +73,96 @@ q4Button2.onclick = comp4to2
 q4Button3.onclick = comp4to3
 q4Button4.onclick = comp4to4
 
+q5Button1.onclick = lastQuestionWrap
+q5Button2.onclick = lastQuestionWrap
+q5Button3.onclick = lastQuestionWrap
+q5Button4.onclick = lastQuestionWrap
+
 //questionid.value= and do the same for button id. Easier to do if in a li?
 //maybe call a seperate function entirely for the button id's you know that have the wrong answer
 
+
+//compare each question to each answer then execute the function that switches the question
+
+function comp1to1() { compareAnswers(q1Button1, "Jquery", Q2, Q1) }
+function comp1to2() { compareAnswers(q1Button2, "Jquery", Q2, Q1) }
+function comp1to3() { compareAnswers(q1Button3, "Jquery", Q2, Q1) }
+function comp1to4() { compareAnswers(q1Button4, "Jquery", Q2, Q1) }
+
+function comp2to1() { compareAnswers(q2Button1, "#Example", Q3, Q2) }
+function comp2to2() { compareAnswers(q2Button2, "#Example", Q3, Q2) }
+function comp2to3() { compareAnswers(q2Button3, "#Example", Q3, Q2) }
+function comp2to4() { compareAnswers(q2Button4, "#Example", Q3, Q2) }
+
+function comp3to1() { compareAnswers(q3Button1, 'var exampleVariable = "Variable Declared"', Q4, Q3) }
+function comp3to2() { compareAnswers(q3Button2, 'var exampleVariable = "Variable Declared"', Q4, Q3) }
+function comp3to3() { compareAnswers(q3Button3, 'var exampleVariable = "Variable Declared"', Q4, Q3) }
+function comp3to4() { compareAnswers(q3Button4, 'var exampleVariable = "Variable Declared"', Q4, Q3) }
+
+function comp4to1() { compareAnswers(q4Button1, "It is a block of code that executes indicated computational tasks", Q5, Q4) }
+function comp4to2() { compareAnswers(q4Button2, "It is a block of code that executes indicated computational tasks", Q5, Q4) }
+function comp4to3() { compareAnswers(q4Button3, "It is a block of code that executes indicated computational tasks", Q5, Q4) }
+function comp4to4() { compareAnswers(q4Button4, "It is a block of code that executes indicated computational tasks", Q5, Q4) }
+
+function lastQuestionWrap() { lastQuestion(q5Button1, "For all of the above.") }
+function lastQuestionWrap() { lastQuestion(q5Button2, "For all of the above.") }
+function lastQuestionWrap() { lastQuestion(q5Button3, "For all of the above.") }
+function lastQuestionWrap() { lastQuestion(q5Button4, "For all of the above.") }
+
 function compareAnswers(choice, correctChoice, nextQ, lastQ) {
-    if (choice.innerHTML == correctChoice) {
+    if (choice.innerText == correctChoice) {
         nextQ.style.display = "block";
         lastQ.style.display = "none";
         score += 1
     }
+
     else {
         nextQ.style.display = "block";
         lastQ.style.display = "none";
+        timeLeft -= 15
     }
 }
 
-//compare each question to each answer then execute the function that switches the question
+function lastQuestion(choice, correctChoice) {
+    if (choice.innerText == correctChoice) {
+        score += 1
+        quizEnd
+    }
+}
 
-function comp1to1() {compareAnswers(q1Button1,"Jquery",Q2,Q1)}
-function comp1to2() {compareAnswers(q1Button2,"Jquery",Q2,Q1)}
-function comp1to3() {compareAnswers(q1Button3,"Jquery",Q2,Q1)}
-function comp1to4() {compareAnswers(q1Button4,"Jquery",Q2,Q1)}
+function timeDecriment() {
+    timeLeft--
+    timer.innerHTML = timeLeft
+    if (timer.innerHTML <= 0) {
+        clearInterval(interval)
+    }
+}
 
-function comp2to1() {compareAnswers(q1Button1,"#Example",Q3,Q2)}
-function comp2to2() {compareAnswers(q1Button2,"#Example",Q3,Q2)}
-function comp2to3() {compareAnswers(q1Button3,"#Example",Q3,Q2)}
-function comp2to4() {compareAnswers(q1Button4,"#Example",Q3,Q2)}
+function quizEnd() {
+    quizContent.style.display = "none";
+    finalPage.style.display = "block";
+}
 
-function comp3to1() {compareAnswers(q1Button1,"var exampleVariable = 'Variable Declared'",Q4,Q3)}
-function comp3to2() {compareAnswers(q1Button2,"var exampleVariable = 'Variable Declared'",Q4,Q3)}
-function comp3to3() {compareAnswers(q1Button3,"var exampleVariable = 'Variable Declared'",Q4,Q3)}
-function comp3to4() {compareAnswers(q1Button4,"var exampleVariable = 'Variable Declared'",Q4,Q3)}
+function zeroTime() {
 
-function comp4to1() {compareAnswers(q1Button1,"For all of the above.",Q5,Q4)}
-function comp4to2() {compareAnswers(q1Button2,"For all of the above.",Q5,Q4)}
-function comp4to3() {compareAnswers(q1Button3,"For all of the above.",Q5,Q4)}
-function comp4to4() {compareAnswers(q1Button4,"For all of the above.",Q5,Q4)}
+    if (timeLeft <= 0) {
+        // hides final page as well if quizContent called, and ignores the if statement but runs if the if statment doesn't exist?
+        quizEnd
+    }
+}
+
+initialsSubmitBtn.onclick = function () {
+    localStorage.setItem("initials", initialsInput.value)
+    localStorage.setItem("score", score)
+    displayScores.innerHTML = "INITIALS:" + " " + localStorage.getItem('initials') + " " + "SCORE:" + " " + localStorage.getItem('score')
+    scores.style.display = 'block'
+
+}
 
 
+// how to save and pull multiple users scores...
+// quizContent.style.display = "none";
+    // finalPage.style.display = "block";
 
 
 // // GIVEN I am taking a code quiz

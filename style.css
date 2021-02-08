@@ -51,15 +51,45 @@ body{
 #qDiv{
     display: none
 }
+
+#Q1{
+
+    text-align: center;
+    
+}
+
 #Q2{
-    display: none
+    display: none;
+    text-align: center;
 }
 #Q3{
-    display: none
+    display: none;
+    text-align: center;
 }
 #Q4{
-    display: none
+    display: none;
+    text-align: center;
 }
 #Q5{
+    display: none;
+    text-align: center;
+}
+
+#fialPage{
     display: none
 }
+#scores
+{
+    display: none
+}
+
+p {
+    text-align: center;
+    padding-top: 10px;
+}
+
+button {
+    text-align: center;
+    padding-top: 10px;
+}
+
